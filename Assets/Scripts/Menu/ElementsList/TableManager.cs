@@ -9,9 +9,12 @@ using UnityEngine.UI;
 public class TableManager : MonoBehaviour
 {
     private GameObject Prefab;
+    private RectTransform Rect;
+    private const int BUTTON_HEIGHT = 150;
 
     void Start()
     {
+        Rect = GetComponent<RectTransform>();
         Prefab = transform.GetChild(0).gameObject;
         Prefab.SetActive(false);
         SetTable(GimbarrElements.AllElements);
@@ -28,6 +31,7 @@ public class TableManager : MonoBehaviour
                 Destroy(objToRemove[i]);
 
         list = list.OrderBy(x => x.ElementName).ToList();
+        Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * list.Count);
         foreach (var el in list)
         {
             var nextEl = Instantiate(Prefab);
