@@ -44,7 +44,7 @@ public class TableManager : MonoBehaviour
             nextEl.GetComponent<Button>().onClick.AddListener(delegate
             {
                 SelectedElement.Instance.Selected = el;
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
             });
         }
     }
