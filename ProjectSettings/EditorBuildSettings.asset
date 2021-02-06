@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/YoutubePlayer/Scenes/Panoramic.unity
     guid: 1bebc975b3ae4410992c0452b2323406
+  - enabled: 1
+    path: Assets/Scenes/ElementsList.unity
+    guid: f3a8c3e2267e7044e89247597189611c
   m_configObjects: {}
