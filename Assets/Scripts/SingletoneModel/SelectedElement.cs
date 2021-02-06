@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,18 @@ namespace Assets.Scripts.SingletoneModel
 {
     class SelectedElement
     {
+        public static SelectedElement Instance { get; set; }
+
+        public Element Selected;
+
+        static SelectedElement()
+        {
+            Instance = new SelectedElement();
+        }
+
+        private SelectedElement()
+        {
+
+        }
     }
 }

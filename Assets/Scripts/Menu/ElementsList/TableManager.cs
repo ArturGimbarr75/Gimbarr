@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.ModelControllers;
 using Assets.Scripts.Models;
+using Assets.Scripts.SingletoneModel;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TableManager : MonoBehaviour
@@ -39,6 +41,11 @@ public class TableManager : MonoBehaviour
             nextEl.transform.SetParent(transform);
             nextEl.transform.localScale = Vector3.one;
             nextEl.GetComponentInChildren<Text>().text = el.ElementName;
+            nextEl.GetComponent<Button>().onClick.AddListener(delegate
+            {
+                SelectedElement.Instance.Selected = el;
+                SceneManager.LoadScene(1);
+            });
         }
     }
 }
