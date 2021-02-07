@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Models;
+﻿using Assets.Scripts.ModelControllers;
+using Assets.Scripts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,10 @@ namespace Assets.Scripts.SingletoneModel
 
         static SelectedElement()
         {
-            Instance = new SelectedElement();
+            Instance = new SelectedElement()
+            {
+                Selected = GimbarrElements.AllElements.First()
+            };
         }
 
         private SelectedElement()
