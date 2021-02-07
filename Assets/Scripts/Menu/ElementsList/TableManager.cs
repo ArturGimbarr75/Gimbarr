@@ -13,6 +13,7 @@ public class TableManager : MonoBehaviour
     private GameObject Prefab;
     private RectTransform Rect;
     private const int BUTTON_HEIGHT = 150;
+    private const int SCROLLBAR_WIDTH = 20;
     private List<GameObject> Buttons;
 
     void Start()
@@ -34,6 +35,7 @@ public class TableManager : MonoBehaviour
             var nextEl = Instantiate(Prefab);
             nextEl.SetActive(true);
             nextEl.transform.SetParent(transform);
+            nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
             nextEl.GetComponentInChildren<Text>().text = el.ElementName;
             int id = el.ID;
             nextEl.GetComponent<Button>().onClick.AddListener(delegate
@@ -42,6 +44,13 @@ public class TableManager : MonoBehaviour
                 SceneManager.LoadScene(2);
             });
             Buttons.Add(nextEl);
+        }
+
+        int minFontSize = Buttons.Min(x => x.GetComponentInChildren<Text>().fontSize);
+        for (int i = 0; i < Buttons.Count; i++)
+        {
+            Buttons[i].GetComponentInChildren<Text>().resizeTextForBestFit = false;
+            Buttons[i].GetComponentInChildren<Text>().fontSize = minFontSize;
         }
     }
 

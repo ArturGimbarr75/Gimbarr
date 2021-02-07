@@ -62,13 +62,8 @@ public class SetUpElementInfo : MonoBehaviour
         };
         string[] forSearch = SelectedElement.Instance.Selected.ElementName.Split(' ').Where(x => !notForSearch.Contains(x.ToLower())).Select(x => x).ToArray();
         var elementsList = GimbarrElements.AllElements
-            .Where(el => forSearch.Where(x => el.ElementName.ToLower().Contains(x.ToLower())).Select(x => x).Count() > 0)
-            .Select(el => el).ToList();
-
-        /*HashSet<int> selected = new HashSet<int>();
-        for (int i = 0; i < 10000 && selected.Count < forSearch.Count() && selected.Count < maxButtonsCount; i++)
-            selected.Add(elementsList[Random.Range(0, elementsList.Count())]);
-        Element[] elements = GimbarrElements.AllElements.Where(x => selected.Contains(x.ID)).ToArray();*/
+            .Where(el => forSearch.Where(x => el.ElementName.ToLower().Contains(x.ToLower()) && el.ID != SelectedElement.Instance.Selected.ID)
+            .Select(x => x).Count() > 0).ToList();
 
         for (int i = 0; i < maxButtonsCount && i < elementsList.Count(); i++)
         {
