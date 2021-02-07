@@ -45,6 +45,6 @@ public class SearchManager : MonoBehaviour
                 (Field.text == string.Empty ? true : x.ElementName.ToLower().Contains(Field.text.ToLower())) &&
                 (DropdownElements[DropdownStyles.value].HasFlag(x.Style))
             ).Select(x => x).ToList();
-        InfoTable.SetTable(list);
+        InfoTable.UpdateTable(list);
     }
 }

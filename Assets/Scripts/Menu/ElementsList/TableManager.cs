@@ -13,39 +13,44 @@ public class TableManager : MonoBehaviour
     private GameObject Prefab;
     private RectTransform Rect;
     private const int BUTTON_HEIGHT = 150;
+    private List<GameObject> Buttons;
 
     void Start()
     {
         Rect = GetComponent<RectTransform>();
         Prefab = transform.GetChild(0).gameObject;
         Prefab.SetActive(false);
-        SetTable(GimbarrElements.AllElements);
+        Buttons = new List<GameObject>();
+        SetUpTable();
     }
 
-    public void SetTable(List<Element> list)
+    public void SetUpTable()
     {
-        List<GameObject> objToRemove = new List<GameObject>();
-        for (int i = 0; i < transform.childCount; i++)
-            objToRemove.Add(transform.GetChild(i).gameObject);
-
-        for (int i = 0; i < objToRemove.Count; i++)
-            if (objToRemove[i].activeSelf)
-                Destroy(objToRemove[i]);
-
-        list = list.OrderBy(x => x.ElementName).ToList();
+        var list = GimbarrElements.AllElements.OrderBy(x => x.ElementName).ToList();
         Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * list.Count);
+
         foreach (var el in list)
         {
             var nextEl = Instantiate(Prefab);
             nextEl.SetActive(true);
             nextEl.transform.SetParent(transform);
-            nextEl.transform.localScale = Vector3.one;
             nextEl.GetComponentInChildren<Text>().text = el.ElementName;
+            int id = el.ID;
             nextEl.GetComponent<Button>().onClick.AddListener(delegate
             {
-                SelectedElement.Instance.Selected = el;
+                SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
                 SceneManager.LoadScene(2);
             });
+            Buttons.Add(nextEl);
         }
+    }
+
+    public void UpdateTable(List<Element> list)
+    {
+        var elNames = list.Select(x => x.ElementName).OrderBy(x => x).ToList();
+
+        Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * list.Count);
+        foreach (var el in Buttons)
+            el.SetActive(elNames.Contains(el.GetComponentInChildren<Text>().text));   
     }
 }
