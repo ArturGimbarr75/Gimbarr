@@ -10,48 +10,74 @@ using UnityEngine.UI;
 
 public class TableManager : MonoBehaviour
 {
+    [SerializeField]
+    private LoadingManager Loading;
+
     private GameObject Prefab;
     private RectTransform Rect;
     private const int BUTTON_HEIGHT = 150;
     private const int SCROLLBAR_WIDTH = 20;
     private List<GameObject> Buttons;
 
-    void Start()
+    void Awake()
     {
         Rect = GetComponent<RectTransform>();
         Prefab = transform.GetChild(0).gameObject;
         Prefab.SetActive(false);
         Buttons = new List<GameObject>();
-        SetUpTable();
+        StartCoroutine("SetUpTable");
     }
 
-    public void SetUpTable()
+    public IEnumerator SetUpTable()
     {
         var list = GimbarrElements.AllElements.OrderBy(x => x.ElementName).ToList();
-        Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * list.Count);
-
-        foreach (var el in list)
+        int elementsAdded = 0,
+            perFrame = 150,
+            minFont = Prefab.GetComponentInChildren<Text>().fontSize;
+        while (elementsAdded < list.Count)
         {
-            var nextEl = Instantiate(Prefab);
-            nextEl.SetActive(true);
-            nextEl.transform.SetParent(transform);
-            nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
-            nextEl.GetComponentInChildren<Text>().text = el.ElementName;
-            int id = el.ID;
-            nextEl.GetComponent<Button>().onClick.AddListener(delegate
+            elementsAdded += perFrame;
+            int currentCount = Mathf.Min(elementsAdded, list.Count);
+            Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * currentCount);
+
+            bool isMinFontChanged = false;
+            for (int i = elementsAdded - perFrame; i < currentCount; i++)
             {
-                SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
-                SceneManager.LoadScene(2);
-            });
-            Buttons.Add(nextEl);
+                var nextEl = Instantiate(Prefab);
+                nextEl.SetActive(true);
+                nextEl.transform.SetParent(transform);
+                nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
+                nextEl.GetComponentInChildren<Text>().text = list[i].ElementName;
+                int id = list[i].ID;
+                nextEl.GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
+                    Loading.StartSceneLoading(2);
+                });
+
+                var text = nextEl.GetComponentInChildren<Text>();
+                text.resizeTextForBestFit = false;
+                if (text.fontSize < minFont)
+                {
+                    minFont = nextEl.GetComponentInChildren<Text>().fontSize;
+                    isMinFontChanged = true;
+                }
+
+                Buttons.Add(nextEl);
+            }
+
+            if (isMinFontChanged)
+                Buttons.ForEach(x =>
+                {
+                    var text = x.GetComponentInChildren<Text>();
+                    text.resizeTextForBestFit = false;
+                    text.fontSize = minFont;
+                });
+
+            yield return new WaitForEndOfFrame();
         }
 
-        int minFontSize = Buttons.Min(x => x.GetComponentInChildren<Text>().fontSize);
-        for (int i = 0; i < Buttons.Count; i++)
-        {
-            Buttons[i].GetComponentInChildren<Text>().resizeTextForBestFit = false;
-            Buttons[i].GetComponentInChildren<Text>().fontSize = minFontSize;
-        }
+        yield return null;
     }
 
     public void UpdateTable(List<Element> list)
