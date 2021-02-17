@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class ElementsListManager : MonoBehaviour
 {
+    [SerializeField]
+    private LoadingManager Loading;
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
-            SceneManager.LoadScene(0);
+            Loading.StartSceneLoading(0);
     }
 }

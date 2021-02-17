@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ElementInfoManager : MonoBehaviour
 {
+    [SerializeField]
+    private LoadingManager Loading;
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
-            SceneManager.LoadScene(1);
+            Loading.StartSceneLoading(1);
     }
 }

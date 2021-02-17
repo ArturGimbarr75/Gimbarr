@@ -16,6 +16,9 @@ public class SetUpElementInfo : MonoBehaviour
     public GameObject SameElementsTable;
     public GameObject ButtonPrefab;
 
+    [SerializeField]
+    private LoadingManager Loading;
+
     private const int BUTTON_HEIGHT = 150;
 
     void Awake()
@@ -80,7 +83,7 @@ public class SetUpElementInfo : MonoBehaviour
             tempButton.GetComponent<Button>().onClick.AddListener(delegate
             {
                 SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
-                SceneManager.LoadScene(2);
+                Loading.StartSceneLoading(2);
             });
         }
     }
