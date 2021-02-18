@@ -28,7 +28,6 @@ public class LoadingManager : MonoBehaviour
 
         LoadingObject.SetActive(true);
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneNumber);
-        //operation.allowSceneActivation = false;
     }
 
 }
