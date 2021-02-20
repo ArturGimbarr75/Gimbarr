@@ -57,6 +57,34 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
             return res;
         }
 
+        public static int GetCountOfCompletedElements()
+        {
+            string query =
+                "SELECT COUNT(*) " +
+                "FROM WorkoutElement";
+ 
+            Func<SqliteDataReader, object> func =
+                x => x["COUNT(*)"];
+
+            Int32.TryParse(DataBase.ExecuteQueryWithAnswer(query, func).ToString(), out int res);
+
+            return res;
+        }
+
+        public static int GetCountOfDifferentCompletedElements()
+        {
+            string query =
+                "SELECT COUNT(DISTINCT(element_id)) " +
+                "FROM WorkoutElement";
+
+            Func<SqliteDataReader, object> func =
+                x => x["COUNT(DISTINCT(element_id))"];
+
+            Int32.TryParse(DataBase.ExecuteQueryWithAnswer(query, func).ToString(), out int res);
+
+            return res;
+        }
+
         public static void AddElementToWorkout(int order, int elementId)
         {
             string query =

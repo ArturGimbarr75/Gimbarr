@@ -125,6 +125,21 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
             return res;
         }
 
+        public static int GetCountOfCompletedWorkouts()
+        {
+            string query =
+                "SELECT COUNT(*) " +
+                "FROM Workout " +
+                "WHERE end NOT NULL";
+
+            Func<SqliteDataReader, object> func =
+                x => x["COUNT(*)"];
+
+            Int32.TryParse(DataBase.ExecuteQueryWithAnswer(query, func).ToString(), out int res);
+
+            return res;
+        }
+
         private static void EndWorkouts(List<Workout> workouts)
         {
             foreach (var workout in workouts)

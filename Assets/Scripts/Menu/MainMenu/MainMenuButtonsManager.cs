@@ -21,6 +21,6 @@ public class MainMenuButtonsManager : MonoBehaviour
 
     public void OnWorkoutClick()
     {
-
+        Loading.StartSceneLoading(3);
     }
 }
