@@ -54,17 +54,14 @@ namespace Assets.Scripts.DataBase
             CloseConnection();
         }
 
-        public static string ExecuteQueryWithAnswer(string query)
+        public static object ExecuteQueryWithAnswer(string query, Func<SqliteDataReader, object> funcRes)
         {
             OpenConnection();
             Command.CommandText = query;
-            var answer = Command.ExecuteScalar();
+            var answer = funcRes(Command.ExecuteReader());
             CloseConnection();
 
-            if (answer != null)
-                return answer.ToString();
-            else
-                return null;
+            return answer;
         }
     }
 }
