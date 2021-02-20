@@ -10,7 +10,7 @@ namespace Assets.Scripts.DataBase.WorkoutTable
 {
     static class WorkoutTable
     {
-        public static bool HasUnfinishedWorkouts()
+        public static bool HasUnfinishedWorkout()
             => HasUnfinishedWorkouts(out int x);
 
         public static bool HasUnfinishedWorkouts(out int workoutId)
@@ -62,7 +62,7 @@ namespace Assets.Scripts.DataBase.WorkoutTable
             EndWorkout(id);
         }
 
-        public static void EndWorkout(int workoutId)
+        private static void EndWorkout(int workoutId)
         {
             string query = String.Format(
                 "UPDATE Workout " +
