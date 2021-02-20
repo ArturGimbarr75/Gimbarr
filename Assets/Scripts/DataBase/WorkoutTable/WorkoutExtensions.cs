@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.DataBase.WorkoutTable
+namespace Assets.Scripts.DataBase.WorkoutTableNS
 {
     static class WorkoutExtensions
     {

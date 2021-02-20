@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Models;
+﻿using Assets.Scripts.DataBase.WorkoutElementTableNS;
+using Assets.Scripts.Models;
 using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.DataBase.WorkoutTable
+namespace Assets.Scripts.DataBase.WorkoutTableNS
 {
     static class WorkoutTable
     {
@@ -80,6 +81,9 @@ namespace Assets.Scripts.DataBase.WorkoutTable
                 "WHERE id == '{0}'"
                 , workoutId);
 
+            WorkoutElementTable.CurrentWorkoutID = workoutId;
+            WorkoutElementTable.DeleteAllWorkoutElements();
+
             DataBase.ExecuteQueryWithoutAnswer(query);
         }
 
@@ -87,6 +91,7 @@ namespace Assets.Scripts.DataBase.WorkoutTable
         {
             string query = "DELETE FROM Workout";
 
+            WorkoutElementTable.DeleteAllElements();
             DataBase.ExecuteQueryWithoutAnswer(query);
         }
 
