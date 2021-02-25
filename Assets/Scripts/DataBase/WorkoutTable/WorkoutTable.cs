@@ -95,7 +95,18 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
             DataBase.ExecuteQueryWithoutAnswer(query);
         }
 
-        public static List<Workout> GetAllWorkouts()
+        public static List<Workout> GetAllCompletedWorkoutsWithElementsCount(out List<int> elements)
+        {
+            var resList = GetAllCompletedWorkouts();
+            elements = new List<int>();
+
+            for (int i = 0; i < resList.Count; i++)
+                elements.Add(WorkoutElementTable.GetCountOfCompletedElementsInWorkout(resList[i].ID));
+
+            return resList;
+        }
+
+        public static List<Workout> GetAllCompletedWorkouts()
         {
             string query =
                 "SELECT * " +

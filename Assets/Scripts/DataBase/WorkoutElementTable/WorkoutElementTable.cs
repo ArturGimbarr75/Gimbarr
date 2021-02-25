@@ -71,6 +71,23 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
             return res;
         }
 
+        public static int GetCountOfCompletedElementsInWorkout(int workoutId)
+        {
+            string query =
+                String.Format(
+                "SELECT COUNT(*) " +
+                "FROM WorkoutElement " +
+                "WHERE workout_id == '{0}'",
+                workoutId);
+
+            Func<SqliteDataReader, object> func =
+                x => x["COUNT(*)"];
+
+            Int32.TryParse(DataBase.ExecuteQueryWithAnswer(query, func).ToString(), out int res);
+
+            return res;
+        }
+
         public static int GetCountOfDifferentCompletedElements()
         {
             string query =
