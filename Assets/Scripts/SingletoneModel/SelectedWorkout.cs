@@ -15,7 +15,13 @@ namespace Assets.Scripts.SingletoneModel
 
         static SelectedWorkout()
         {
-            Instance = new SelectedWorkout();
+            Instance = new SelectedWorkout()
+            {
+                Selected = new Workout()
+                {
+                    ID = 1
+                }
+            };
         }
     }
 }

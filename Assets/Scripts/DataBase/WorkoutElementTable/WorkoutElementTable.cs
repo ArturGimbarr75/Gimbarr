@@ -42,6 +42,21 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
             return res;
         }
 
+        public static List<WorkoutElement> GetWorkoutElements(int workoutId)
+        {
+            string query =
+                String.Format(
+                "SELECT * FROM WorkoutElement " +
+                "WHERE workout_id == '{0}'",
+                workoutId);
+            Func<SqliteDataReader, object> func =
+                x => x.ConvertToWorkoutElementList();
+
+            var res = DataBase.ExecuteQueryWithAnswer(query, func) as List<WorkoutElement>;
+
+            return res;
+        }
+
         public static int GetLastOrderIndex()
         {
             string query =
