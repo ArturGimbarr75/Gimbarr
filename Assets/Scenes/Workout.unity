@@ -449,9 +449,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuButtonsManager, Assembly-CSharp
-        m_MethodName: OnWorkoutClick
+      - m_Target: {fileID: 1936974895}
+        m_TargetAssemblyTypeName: WorkoutButtonsManager, Assembly-CSharp
+        m_MethodName: OnWorkoutsClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -619,9 +619,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuButtonsManager, Assembly-CSharp
-        m_MethodName: OnWorkoutClick
+      - m_Target: {fileID: 1936974895}
+        m_TargetAssemblyTypeName: WorkoutButtonsManager, Assembly-CSharp
+        m_MethodName: OnStatisticsClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1138,9 +1138,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuButtonsManager, Assembly-CSharp
-        m_MethodName: OnWorkoutClick
+      - m_Target: {fileID: 1936974895}
+        m_TargetAssemblyTypeName: WorkoutButtonsManager, Assembly-CSharp
+        m_MethodName: OnNewWorkoutClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
