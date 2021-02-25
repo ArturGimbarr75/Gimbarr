@@ -59,7 +59,7 @@ public class WorkoutListTableManager : MonoBehaviour
                 nextEl.GetComponent<Button>().onClick.AddListener(delegate
                 {
                     SelectedWorkout.Instance.Selected = new Workout() { ID = id };
-                    Loading.StartSceneLoading(0);
+                    Loading.StartSceneLoading(5);
                 });
 
                 yield return new WaitForEndOfFrame();

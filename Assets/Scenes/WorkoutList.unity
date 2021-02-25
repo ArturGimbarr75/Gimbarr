@@ -1709,6 +1709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068465752}
   - component: {fileID: 2068465753}
+  - component: {fileID: 2068465754}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1745,6 +1746,19 @@ MonoBehaviour:
   LoadingObject: {fileID: 1752311285}
   FindingButtonsAutomatically: 1
   Buttons: []
+--- !u!114 &2068465754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068465751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efcc61dbd08b2ff42b58403d60c037dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Loading: {fileID: 2068465753}
 --- !u!1 &2072238108
 GameObject:
   m_ObjectHideFlags: 0
