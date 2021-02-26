@@ -14,6 +14,8 @@ public class NewWorkoutManager : MonoBehaviour
     private LoadingManager Loading;
     [SerializeField]
     private GameObject StartWorkoutPanel;
+    [SerializeField]
+    private GameObject TaskPanel;
 
     private DateTime BeginTime;
     private Workout CurrentWorkout;
@@ -59,5 +61,10 @@ public class NewWorkoutManager : MonoBehaviour
     {
         WorkoutTable.EndWorkout();
         Loading.StartSceneLoading(6);
+    }
+
+    public void CloseTaskPanel()
+    {
+
     }
 }

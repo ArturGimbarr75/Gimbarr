@@ -10,6 +10,13 @@ using UnityEngine.UI;
 
 public class NewWorkoutTable : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject TaskPanel;
+    [SerializeField]
+    private Button YesButton;
+    [SerializeField]
+    private LoadingManager Loading;
+
     private GameObject Prefab;
     private List<Text> Texts;
     private RectTransform Rect;
@@ -55,6 +62,12 @@ public class NewWorkoutTable : MonoBehaviour
                 nextEl.transform.GetChild(0).GetComponent<Text>().text = (i + 1).ToString();
                 nextEl.transform.GetChild(1).GetComponent<Text>().text =
                     GimbarrElements.AllElements.First(x => x.ID == list[i].ElementId).ElementName;
+                int id = list[i].ID;
+                nextEl.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate               
+                {
+                    WorkoutElementTable.DeleteElement(id);
+                    Loading.StartSceneLoading(6);
+                });
 
                 Texts.Add(nextEl.transform.GetChild(1).GetComponent<Text>());
             }
