@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WorkoutInfo.unity
     guid: 9916059a775af55458a3905d63230438
+  - enabled: 1
+    path: Assets/Scenes/NewWorkout.unity
+    guid: 9edc5a61ca59d4b4897a232cf473e51f
   m_configObjects: {}

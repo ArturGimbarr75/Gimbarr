@@ -33,8 +33,7 @@ public class WorkoutListTableManager : MonoBehaviour
         List<Text> texts = new List<Text>();
         var workoutList = WorkoutTable.GetAllCompletedWorkoutsWithElementsCount(out var elementsCount);
         int woekoutsAdded = 0,
-            perFrame = 150,
-            minFont = int.MaxValue;
+            perFrame = 150;
 
         Prefab.SetActive(false);
 

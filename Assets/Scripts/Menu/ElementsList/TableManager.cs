@@ -48,12 +48,19 @@ public class TableManager : MonoBehaviour
                 nextEl.transform.SetParent(transform);
                 nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
                 nextEl.GetComponentInChildren<Text>().text = list[i].ElementName;
-                int id = list[i].ID;
-                nextEl.GetComponent<Button>().onClick.AddListener(delegate
+                if (FunctionInElementsList.Instance.Function == FunctionInElementsList.FunctionType.Info)
                 {
-                    SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
-                    Loading.StartSceneLoading(2);
-                });
+                    int id = list[i].ID;
+                    nextEl.GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
+                        Loading.StartSceneLoading(2);
+                    });
+                }
+                else
+                {
+
+                }
 
                 var text = nextEl.GetComponentInChildren<Text>();
                 text.resizeTextForBestFit = false;
