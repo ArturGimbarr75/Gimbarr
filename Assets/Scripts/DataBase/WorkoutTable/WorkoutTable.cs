@@ -12,9 +12,9 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
     static class WorkoutTable
     {
         public static bool HasUnfinishedWorkout()
-            => HasUnfinishedWorkouts(out int x);
+            => HasUnfinishedWorkout(out int x);
 
-        public static bool HasUnfinishedWorkouts(out int workoutId)
+        public static bool HasUnfinishedWorkout(out int workoutId)
         {
             string query =
                 "SELECT * " +
@@ -62,13 +62,13 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
                 "VALUES (CURRENT_TIMESTAMP)";
             DataBase.ExecuteQueryWithoutAnswer(query);
 
-            HasUnfinishedWorkouts(out workoutId);
+            HasUnfinishedWorkout(out workoutId);
         }
 
         public static void EndWorkout()
         {
             int id;
-            if (!HasUnfinishedWorkouts(out id))
+            if (!HasUnfinishedWorkout(out id))
                 return;
             EndWorkout(id);
         }

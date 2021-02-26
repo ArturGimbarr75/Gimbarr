@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Models;
+﻿using Assets.Scripts.DataBase.WorkoutTableNS;
+using Assets.Scripts.Models;
 using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -119,6 +120,10 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
 
         public static void AddElementToWorkout(int order, int elementId)
         {
+            if (!WorkoutTable.HasUnfinishedWorkout(out int id))
+                return;
+            CurrentWorkoutID = id;
+
             string query =
                 String.Format(
                 "INSERT INTO WorkoutElement(workout_id, element_id, element_order) " +
