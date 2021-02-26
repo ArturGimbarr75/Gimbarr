@@ -18,9 +18,9 @@ public class SetTextMinSize : MonoBehaviour
     {
         if (TextArr.Length != 0)
         {
-            yield return new WaitForSecondsRealtime(2);
+            yield return new WaitForEndOfFrame();
 
-            int minFontSize = TextArr.First().cachedTextGenerator.fontSizeUsedForBestFit;
+            int minFontSize = int.MaxValue;
             foreach (var t in TextArr)
             {
                 t.resizeTextForBestFit = false;
