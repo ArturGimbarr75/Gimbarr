@@ -24,6 +24,13 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
                 x => x.ConvertToWorkoutList();
 
             var resList = DataBase.ExecuteQueryWithAnswer(query, func) as List<Workout>;
+
+            if (resList.Count == 0)
+            {
+                workoutId = -1;
+                return false;
+            }
+
             var res =
                 resList.Count > 1 ?
                     resList.Find(x => x.Start == resList.Max(y => y.Start))
@@ -44,6 +51,9 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
                 return false;
             }
         }
+
+        public static void StartWorkout()
+            => StartWorkout(out int id);
 
         public static void StartWorkout(out int workoutId)
         {
@@ -118,6 +128,29 @@ namespace Assets.Scripts.DataBase.WorkoutTableNS
             var resList = DataBase.ExecuteQueryWithAnswer(query, func) as List<Workout>;
 
             return resList;
+        }
+
+        public static Workout GetUnfinishedWorkout()
+        {
+            string query =
+               "SELECT * " +
+               "FROM Workout " +
+               "WHERE end IS NULL";
+            Func<SqliteDataReader, object> func =
+                x => x.ConvertToWorkoutList();
+
+            var resList = DataBase.ExecuteQueryWithAnswer(query, func) as List<Workout>;
+
+            if (resList.Count == 0)
+                return null;
+
+            var res =
+                resList.Count > 1 ?
+                    resList.Find(x => x.Start == resList.Max(y => y.Start))
+                :
+                    resList?.First();
+
+            return res;
         }
 
         public static Workout GetWorkoutByID(int workoutId)
