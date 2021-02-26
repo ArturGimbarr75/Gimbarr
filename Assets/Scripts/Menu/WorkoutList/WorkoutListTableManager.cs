@@ -12,19 +12,21 @@ public class WorkoutListTableManager : MonoBehaviour
 {
     [SerializeField]
     private LoadingManager Loading;
+    [SerializeField]
+    private GameObject TaskPanel;
+    [SerializeField]
+    private Button YesButton;
 
     private GameObject Prefab;
     private RectTransform Rect;
     private const int BUTTON_HEIGHT = 150;
     private const int SCROLLBAR_WIDTH = 20;
-    private List<GameObject> Buttons;
 
     void Awake()
     {
         Rect = GetComponent<RectTransform>();
         Prefab = transform.GetChild(0).gameObject;
         Prefab.SetActive(false);
-        Buttons = new List<GameObject>();
         StartCoroutine("SetUpTable");
     }
 
@@ -55,6 +57,16 @@ public class WorkoutListTableManager : MonoBehaviour
                 nextEl.transform.GetChild(2).GetComponent<Text>().text = elementsCount[i].ToString();
 
                 int id = workoutList[i].ID;
+                nextEl.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    TaskPanel.SetActive(true);
+                    YesButton.onClick.RemoveAllListeners();
+                    YesButton.onClick.AddListener(delegate
+                    {
+                        WorkoutTable.DeleteWorkout(id);
+                        Loading.StartSceneLoading(4);
+                    });
+                });
                 nextEl.GetComponent<Button>().onClick.AddListener(delegate
                 {
                     SelectedWorkout.Instance.Selected = new Workout() { ID = id };
@@ -67,4 +79,6 @@ public class WorkoutListTableManager : MonoBehaviour
             yield return null;
         }
     }
+
+
 }
