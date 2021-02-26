@@ -97,9 +97,10 @@ public class TableManager : MonoBehaviour
     public void UpdateTable(List<Element> list)
     {
         var elNames = list.Select(x => x.ElementName).OrderBy(x => x).ToList();
-
-        Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * list.Count);
+       
         foreach (var el in Buttons)
-            el.SetActive(elNames.Contains(el.GetComponentInChildren<Text>().text));   
+            el.SetActive(elNames.Contains(el.GetComponentInChildren<Text>().text));
+
+        Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * Buttons.Count(x => x.activeSelf));
     }
 }
