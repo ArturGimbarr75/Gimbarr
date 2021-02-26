@@ -35,6 +35,9 @@ namespace YoutubePlayer
                 var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero, 100);
                 m_PlaybackProgress.sprite = sprite;
             }
+
+            m_PlaybackProgress.type = Image.Type.Filled;
+            m_PlaybackProgress.fillMethod = Image.FillMethod.Horizontal;
         }
 
         // Update is called once per frame
