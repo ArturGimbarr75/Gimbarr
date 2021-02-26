@@ -95,7 +95,7 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
                 "GROUP BY element_id";
 
             Func<SqliteDataReader, object> func =
-                x => x["COUNT(*)"];
+                x => x.ConvertToElementAndRepeatCountList();
 
             var res = DataBase.ExecuteQueryWithAnswer(query, func) as List<ElementAndRepeatCount>;
 
