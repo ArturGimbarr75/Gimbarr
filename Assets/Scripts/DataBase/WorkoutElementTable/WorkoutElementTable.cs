@@ -87,6 +87,21 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
             return res;
         }
 
+        public static List<ElementAndRepeatCount> GetElementsAndRepeatsCount()
+        {
+            string query =
+                "SELECT *, COUNT(element_id) " +
+                "FROM WorkoutElement " +
+                "GROUP BY element_id";
+
+            Func<SqliteDataReader, object> func =
+                x => x["COUNT(*)"];
+
+            var res = DataBase.ExecuteQueryWithAnswer(query, func) as List<ElementAndRepeatCount>;
+
+            return res;
+        }
+
         public static int GetCountOfCompletedElementsInWorkout(int workoutId)
         {
             string query =

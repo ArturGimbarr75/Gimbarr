@@ -34,5 +34,21 @@ namespace Assets.Scripts.DataBase.WorkoutElementTableNS
 
             return res;
         }
+
+        public static List<ElementAndRepeatCount> ConvertToElementAndRepeatCountList(this SqliteDataReader reader)
+        {
+            List<ElementAndRepeatCount> res = new List<ElementAndRepeatCount>();
+            while (reader.Read())
+            {
+                Int32.TryParse(reader["COUNT(element_id)"].ToString(), out var count);
+                res.Add(new ElementAndRepeatCount()
+                {
+                    ElementInstance = reader.ConvertToWorkoutElement(),
+                    RepeatCount = count
+                });
+            }
+
+            return res;
+        }
     }
 }
