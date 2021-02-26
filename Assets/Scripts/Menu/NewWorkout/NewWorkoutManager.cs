@@ -65,6 +65,6 @@ public class NewWorkoutManager : MonoBehaviour
 
     public void CloseTaskPanel()
     {
-
+        TaskPanel.SetActive(false);
     }
 }
