@@ -28,7 +28,7 @@ public class NewWorkoutTable : MonoBehaviour
     public IEnumerator SetUpTable()
     {
         int workoutId;
-        if (!WorkoutTable.HasUnfinishedWorkouts(out workoutId))
+        if (!WorkoutTable.HasUnfinishedWorkout(out workoutId))
             yield break;
 
         var list = WorkoutElementTable.GetWorkoutElements(workoutId);

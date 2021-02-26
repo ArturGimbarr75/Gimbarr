@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.ModelControllers;
+﻿using Assets.Scripts.DataBase.WorkoutElementTableNS;
+using Assets.Scripts.ModelControllers;
 using Assets.Scripts.Models;
 using Assets.Scripts.SingletoneModel;
 using System.Collections;
@@ -12,6 +13,8 @@ public class TableManager : MonoBehaviour
 {
     [SerializeField]
     private LoadingManager Loading;
+    [SerializeField]
+    private GameObject ChoicePanel;
 
     private GameObject Prefab;
     private RectTransform Rect;
@@ -48,9 +51,9 @@ public class TableManager : MonoBehaviour
                 nextEl.transform.SetParent(transform);
                 nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
                 nextEl.GetComponentInChildren<Text>().text = list[i].ElementName;
+                int id = list[i].ID;
                 if (FunctionInElementsList.Instance.Function == FunctionInElementsList.FunctionType.Info)
-                {
-                    int id = list[i].ID;
+                {                  
                     nextEl.GetComponent<Button>().onClick.AddListener(delegate
                     {
                         SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
@@ -59,7 +62,11 @@ public class TableManager : MonoBehaviour
                 }
                 else
                 {
-
+                    nextEl.GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        SelectedElement.Instance.Selected = GimbarrElements.AllElements.First(x => x.ID == id);
+                        ChoicePanel.SetActive(true);
+                    });
                 }
 
                 var text = nextEl.GetComponentInChildren<Text>();
