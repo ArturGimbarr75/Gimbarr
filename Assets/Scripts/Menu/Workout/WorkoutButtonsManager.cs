@@ -25,6 +25,6 @@ public class WorkoutButtonsManager : MonoBehaviour
 
     public void OnStatisticsClick()
     {
-
+        Loading.StartSceneLoading(3);
     }
 }
