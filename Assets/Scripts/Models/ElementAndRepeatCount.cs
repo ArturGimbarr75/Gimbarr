@@ -10,5 +10,6 @@ namespace Assets.Scripts.Models
     {
         public WorkoutElement ElementInstance { get; set; }
         public int RepeatCount { get; set; }
+        public string ElementName { get; set; }
     }
 }
