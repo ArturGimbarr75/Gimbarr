@@ -15,12 +15,12 @@ public class WorkoutButtonsManager : MonoBehaviour
 
     public void OnNewWorkoutClick()
     {
-        
+        Loading.StartSceneLoading(6);
     }
 
     public void OnWorkoutsClick()
     {
-
+        Loading.StartSceneLoading(4);
     }
 
     public void OnStatisticsClick()
