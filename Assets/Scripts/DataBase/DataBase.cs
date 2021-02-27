@@ -26,11 +26,9 @@ namespace Assets.Scripts.DataBase
         {
         #if UNITY_EDITOR
             return Path.Combine(Application.streamingAssetsPath, FILE_NAME);
-        #elif UNITY_STANDALONE
-            string filePath = Path.Combine(Application.dataPath, FILE_NAME);
-            if(!File.Exists(filePath)) UnpackDatabase(filePath);
-            return filePath;
         #endif
+            string filePath = Path.Combine(Application.dataPath, FILE_NAME);
+            return filePath;       
         }
 
         private static void OpenConnection()
