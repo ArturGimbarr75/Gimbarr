@@ -17,7 +17,12 @@ public class TranslationManager : MonoBehaviour
         TranslationSingletone.Instance.OnLanguageChanged += OnLanguageChanged;
     }
 
-    void OnLanguageChanged(object sender, EventArgs e)
+    void OnDestroy()
+    {
+        TranslationSingletone.Instance.OnLanguageChanged -= OnLanguageChanged;
+    }
+
+    void OnLanguageChanged()
     {
         SetText();
     }

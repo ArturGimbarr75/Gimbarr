@@ -26,7 +26,7 @@ public class SetUpElementInfo : MonoBehaviour
         var element = SelectedElement.Instance.Selected;
 
         Title.text = element.ElementName;
-        Style.text = "Style: " + element.Style.ToString();
+        Style.text = TranslationSingletone.Instance.GetTranslation(5) + ": " + element.Style.ToString();
 
         SetUpButtons();
     }

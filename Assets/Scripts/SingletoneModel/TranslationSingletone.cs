@@ -10,9 +10,9 @@ namespace Assets.Scripts.SingletoneModel
     class TranslationSingletone
     {
         public static TranslationSingletone Instance { get; private set; }
-
-        public event EventHandler OnLanguageChanged;
+        public OnLanguageChangedEvent OnLanguageChanged { get; set; }
         public Language CurrentLanguage { get; private set; }
+        public delegate void OnLanguageChangedEvent();
 
         private Language[] AllLanguages;
         private int Index;
@@ -28,10 +28,9 @@ namespace Assets.Scripts.SingletoneModel
             if (Index >= AllLanguages.Length)
                 Index = 0;
             CurrentLanguage = AllLanguages[Index];
-            OnLanguageChanged(null, null);
+            if (OnLanguageChanged != null)
+                OnLanguageChanged.Invoke();
         }
-
-        
 
         public enum Language
         {
@@ -46,7 +45,8 @@ namespace Assets.Scripts.SingletoneModel
             Instance = new TranslationSingletone()
             {
                 AllLanguages = (Language[])Enum.GetValues(typeof(Language)).Cast<Language>(),
-                Index = 0
+                Index = 0,
+                CurrentLanguage = Language.RU
             };
         }
     }

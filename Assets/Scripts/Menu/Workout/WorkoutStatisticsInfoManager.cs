@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataBase.WorkoutElementTableNS;
 using Assets.Scripts.DataBase.WorkoutTableNS;
+using Assets.Scripts.SingletoneModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,10 @@ public class WorkoutStatisticsInfoManager : MonoBehaviour
     {
         Statistics.text = string.Format
         (
-            GetString(),
+            TranslationSingletone.Instance.GetTranslation(6),
             WorkoutTable.GetCountOfCompletedWorkouts(),
             WorkoutElementTable.GetCountOfCompletedElements(),
             WorkoutElementTable.GetCountOfDifferentCompletedElements()
         );
-    }
-
-    string GetString()
-    {
-        return "Количество тренировок: {0}\nВыполнено элементов: {1}\nРазных элементов: {2}";
     }
 }

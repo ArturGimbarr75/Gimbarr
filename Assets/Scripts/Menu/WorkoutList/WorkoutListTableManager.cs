@@ -53,7 +53,8 @@ public class WorkoutListTableManager : MonoBehaviour
                 nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
 
                 nextEl.transform.GetChild(0).GetComponent<Text>().text = workoutList[i].Start.ToLocalTime().ToShortDateString();
-                nextEl.transform.GetChild(1).GetComponent<Text>().text = ((int)(workoutList[i].End - workoutList[i].Start).TotalMinutes).ToString() + " min";
+                nextEl.transform.GetChild(1).GetComponent<Text>().text = ((int)(workoutList[i].End - workoutList[i].Start).TotalMinutes).ToString() + " " +
+                    TranslationSingletone.Instance.GetTranslation(19);
                 nextEl.transform.GetChild(2).GetComponent<Text>().text = elementsCount[i].ToString();
 
                 int id = workoutList[i].ID;
