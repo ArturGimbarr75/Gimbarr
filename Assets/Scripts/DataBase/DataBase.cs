@@ -25,10 +25,39 @@ namespace Assets.Scripts.DataBase
         private static string GetDatabasePath()
         {
         #if UNITY_EDITOR
-            return Path.Combine(Application.streamingAssetsPath, FILE_NAME);
+            var dbPath = string.Format(@"Assets/StreamingAssets/{0}", FILE_NAME);
+        #else
+        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, FILE_NAME);
+
+        if (!File.Exists(filepath))
+        {
+
+        #if UNITY_ANDROID
+            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + FILE_NAME);
+            while (!loadDb.isDone) { }
+            File.WriteAllBytes(filepath, loadDb.bytes);
+        #elif UNITY_IOS
+                 var loadDb = Application.dataPath + "/Raw/" + FILE_NAME;
+                File.Copy(loadDb, filepath);
+        #elif UNITY_WP8
+                var loadDb = Application.dataPath + "/StreamingAssets/" + FILE_NAME;
+                File.Copy(loadDb, filepath);
+
+        #elif UNITY_WINRT
+		    var loadDb = Application.dataPath + "/StreamingAssets/" + FILE_NAME;
+		    File.Copy(loadDb, filepath);
+        #else
+	        var loadDb = Application.dataPath + "/StreamingAssets/" + FILE_NAME;
+	        File.Copy(loadDb, filepath);
+
         #endif
-            string filePath = Path.Combine(Application.dataPath, FILE_NAME);
-            return filePath;       
+
+            Debug.Log("Database written");
+        }
+
+        var dbPath = filepath;
+        #endif
+            return dbPath;
         }
 
         private static void OpenConnection()
