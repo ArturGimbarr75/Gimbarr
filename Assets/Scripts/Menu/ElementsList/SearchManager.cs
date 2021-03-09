@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SearchManager : MonoBehaviour
 {
-    private TableManager InfoTable;
+    private ElementTableManager InfoTable;
     private InputField Field;
     private Dropdown DropdownStyles;
     private List<Element> AllElements;
@@ -16,7 +16,7 @@ public class SearchManager : MonoBehaviour
 
     void Awake()
     {
-        InfoTable = GameObject.Find("Content").GetComponent<TableManager>();
+        InfoTable = GameObject.Find("Content").GetComponent<ElementTableManager>();
 
         DropdownElements = new List<GimbarrElements.GimbarrStyle>()
         {
