@@ -10,6 +10,8 @@ public class ElementTableManager : MonoBehaviour, IRecyclableScrollRectDataSourc
 {
     [SerializeField]
     RecyclableScrollRect RecyclableScroll;
+    [SerializeField]
+    GameObject Content;
 
     private List<InitInfo> Elements;
 
@@ -29,7 +31,36 @@ public class ElementTableManager : MonoBehaviour, IRecyclableScrollRectDataSourc
                 ElementName = el.ElementName,
                 ID = el.ID
             });
-        Elements.OrderBy(x => x.ElementName);
+        Elements = Elements.OrderBy(x => x.ElementName).ToList();
+
+        StartCoroutine("Refresh");
+    }
+
+    private IEnumerator Refresh()
+    {
+        Content.transform.position =
+            new Vector3
+            (
+                Content.transform.position.x,
+                Content.transform.position.y + Screen.height,
+                Content.transform.position.z
+            );
+        yield return new WaitForEndOfFrame();
+        Content.transform.position =
+            new Vector3
+            (
+                Content.transform.position.x,
+                Content.GetComponent<RectTransform>().rect.height * 1000,
+                Content.transform.position.z
+            );
+        yield return new WaitForEndOfFrame();
+        Content.transform.position =
+            new Vector3
+            (
+                Content.transform.position.x,
+                -Screen.height * 1000,
+                Content.transform.position.z
+            );
     }
 
     public int GetItemCount()
@@ -40,6 +71,8 @@ public class ElementTableManager : MonoBehaviour, IRecyclableScrollRectDataSourc
     public void SetCell(ICell cell, int index)
     {
         var item = cell as ElementCell;
+        if (index > Elements.Count - 1 || index < 0)
+            return;
         item.ConfigureCell(Elements[index].ElementName, Elements[index].ID);
     }
 
@@ -47,5 +80,10 @@ public class ElementTableManager : MonoBehaviour, IRecyclableScrollRectDataSourc
     {
         public string ElementName { get; set; }
         public int ID { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ElementName} ID: {ID}";
+        }
     }
 }

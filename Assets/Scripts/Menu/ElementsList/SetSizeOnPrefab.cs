@@ -17,4 +17,9 @@ public class SetSizeOnPrefab : MonoBehaviour
             text.fontSize = (int)FontSize;
         }
     }
+
+    void OnDestroy()
+    {
+        FontSize = null;
+    }
 }

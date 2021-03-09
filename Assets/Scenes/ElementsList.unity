@@ -985,6 +985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0db60f2569a6f429e5ec8331162fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InfoTable: {fileID: 727037498}
 --- !u!1 &403005579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,6 +1446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RecyclableScroll: {fileID: 1783104423}
+  Content: {fileID: 703787756}
 --- !u!1 &872777406
 GameObject:
   m_ObjectHideFlags: 0

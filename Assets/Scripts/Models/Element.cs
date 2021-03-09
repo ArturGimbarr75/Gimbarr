@@ -13,5 +13,10 @@ namespace Assets.Scripts.Models
         public string ElementName { get; set; }
         public string Url { get; set; }
         public GimbarrElements.GimbarrStyle Style { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ElementName} ID: {ID}";
+        }
     }
 }
