@@ -11,6 +11,10 @@ public class ElementInfoManager : MonoBehaviour
     private LoadingManager Loading;
     [SerializeField]
     private GameObject AddButton;
+    [SerializeField]
+    private GameObject PlayButton;
+    [SerializeField]
+    private GameObject VideoPanel;
 
     void Start()
     {
@@ -33,5 +37,11 @@ public class ElementInfoManager : MonoBehaviour
             WorkoutElementTable.AddElementToWorkout(SelectedElement.Instance.Selected.ID);
             Loading.StartSceneLoading(6);
         }
+    }
+
+    public void OnPlayClick()
+    {
+        PlayButton.SetActive(false);
+        VideoPanel.SetActive(true);
     }
 }
