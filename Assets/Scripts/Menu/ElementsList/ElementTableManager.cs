@@ -33,34 +33,7 @@ public class ElementTableManager : MonoBehaviour, IRecyclableScrollRectDataSourc
             });
         Elements = Elements.OrderBy(x => x.ElementName).ToList();
 
-        StartCoroutine("Refresh");
-    }
-
-    private IEnumerator Refresh()
-    {
-        Content.transform.position =
-            new Vector3
-            (
-                Content.transform.position.x,
-                Content.transform.position.y + Screen.height,
-                Content.transform.position.z
-            );
-        yield return new WaitForEndOfFrame();
-        Content.transform.position =
-            new Vector3
-            (
-                Content.transform.position.x,
-                Content.GetComponent<RectTransform>().rect.height * 1000,
-                Content.transform.position.z
-            );
-        yield return new WaitForEndOfFrame();
-        Content.transform.position =
-            new Vector3
-            (
-                Content.transform.position.x,
-                -Screen.height * 1000,
-                Content.transform.position.z
-            );
+        RecyclableScroll.ReloadData();
     }
 
     public int GetItemCount()
