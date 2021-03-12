@@ -1,66 +1,37 @@
 ﻿using Assets.Scripts.DataBase.WorkoutElementTableNS;
 using Assets.Scripts.ModelControllers;
+using Assets.Scripts.Models;
 using Assets.Scripts.SingletoneModel;
+using PolyAndCode.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatisticsTable : MonoBehaviour
+public class StatisticsTable : MonoBehaviour, IRecyclableScrollRectDataSource
 {
-    private GameObject Prefab;
-    private List<Text> Texts;
-    private RectTransform Rect;
-    private const int BUTTON_HEIGHT = 150;
-    private const int SCROLLBAR_WIDTH = 20;
+    private List<ElementAndRepeatCount> Elements;
+    [SerializeField]
+    RecyclableScrollRect RecyclableScroll;
 
     void Awake()
-    {
-        Texts = new List<Text>();
-        Rect = GetComponent<RectTransform>();
-        Prefab = transform.GetChild(0).gameObject;
-        Prefab.SetActive(false);
-        StartCoroutine("SetUpTable");
+    {   
+        RecyclableScroll.DataSource = this;
+        Elements = WorkoutElementTable.GetElementsAndRepeatsCount();
+        Elements = Elements.OrderBy(x => x.ElementName).ToList();
     }
 
-    public IEnumerator SetUpTable()
+    public int GetItemCount()
     {
-        var list = WorkoutElementTable.GetElementsAndRepeatsCount();
-        list.ForEach(x => x.ElementName = GimbarrElements.AllElements.Find(el => el.ID == x.ElementInstance.ElementId).ElementName);
-        list = list.OrderBy(x => x.ElementName).ToList();
-        int elementsAdded = 0;
-        int perFrame = 150;
-        int minFont = Prefab.transform.GetChild(1).GetComponent<Text>().fontSize;
-
-        while (elementsAdded < list.Count)
-        {
-            elementsAdded += perFrame;
-            int currentCount = Mathf.Min(elementsAdded, list.Count);
-            Rect.sizeDelta = new Vector2(0, BUTTON_HEIGHT * currentCount);
-
-            for (int i = elementsAdded - perFrame; i < currentCount; i++)
-            {
-                var nextEl = Instantiate(Prefab);
-                nextEl.SetActive(true);
-                nextEl.transform.SetParent(transform);
-                nextEl.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - SCROLLBAR_WIDTH, BUTTON_HEIGHT);
-                nextEl.transform.GetChild(0).GetComponent<Text>().text = list[i].ElementName;
-                nextEl.transform.GetChild(1).GetComponent<Text>().text = list[i].RepeatCount.ToString();
-
-                Texts.Add(nextEl.transform.GetChild(1).GetComponent<Text>());
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-        SetTextSize();
-        yield return null;
+        return Elements.Count;
     }
 
-    void SetTextSize()
+    public void SetCell(ICell cell, int index)
     {
-        var minFontSize = Texts.Where(x => x.cachedTextGenerator.fontSizeUsedForBestFit != 0)
-            .Min(x => x.cachedTextGenerator.fontSizeUsedForBestFit);
-        Texts.ForEach(x => x.resizeTextMaxSize = minFontSize);
+        var item = cell as StatisticsCell;
+        if (index > Elements.Count - 1 || index < 0)
+            return;
+        item.ConfigureCell(GimbarrElements.AllElements.Find(x => x.ID == Elements[index].ElementInstance.ID).ElementName, Elements[index].RepeatCount);
     }
 }
