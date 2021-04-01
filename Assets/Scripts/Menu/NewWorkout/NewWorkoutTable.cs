@@ -13,6 +13,8 @@ public class NewWorkoutTable : MonoBehaviour
     [SerializeField]
     private GameObject TaskPanel;
     [SerializeField]
+    private GameObject AddPanel;
+    [SerializeField]
     private Button YesButton;
     [SerializeField]
     private LoadingManager Loading;
@@ -68,6 +70,18 @@ public class NewWorkoutTable : MonoBehaviour
                     WorkoutElementTable.DeleteElement(id);
                     Loading.StartSceneLoading(6);
                 });
+                int index = i;
+                nextEl.GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    AddPanel.SetActive(true);
+                    AddPanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        WorkoutElementTable.AddElementToWorkout(list[index].ElementId);
+                        AddPanel.SetActive(false);
+                        Loading.StartSceneLoading(6);
+                    });
+                });
+
 
                 Texts.Add(nextEl.transform.GetChild(1).GetComponent<Text>());
             }

@@ -16,6 +16,8 @@ public class NewWorkoutManager : MonoBehaviour
     private GameObject StartWorkoutPanel;
     [SerializeField]
     private GameObject TaskPanel;
+    [SerializeField]
+    private GameObject AddPanel;
 
     private DateTime BeginTime;
     private Workout CurrentWorkout;
@@ -64,6 +66,11 @@ public class NewWorkoutManager : MonoBehaviour
     }
 
     public void CloseTaskPanel()
+    {
+        TaskPanel.SetActive(false);
+    }
+
+    public void CloseAddPanel()
     {
         TaskPanel.SetActive(false);
     }
