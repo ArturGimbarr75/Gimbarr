@@ -44,4 +44,9 @@ public class ElementInfoManager : MonoBehaviour
         PlayButton.SetActive(false);
         VideoPanel.SetActive(true);
     }
+
+    public void OnPlayYouTubeClick()
+    {
+        Application.OpenURL(SelectedElement.Instance.Selected.Url);
+    }
 }
